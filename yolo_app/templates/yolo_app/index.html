@@ -1,13 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yolo App Detect</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Yolo App Detect</title>
 </head>
+
 <body>
-    <img src="{% url 'video_feed' %}" width="640" height="480">
-    <h1>a</h1>
+  <div class="container-fluid p-2 bg-primary text-white text-left">
+    <h4>Yolo Detect Realtime</h4>
+  </div>
+  <div class="container mt-2">
+    <div class="row p-1" style="justify-content: space-between;">
+      <div class="col-md-6 p-2" style="background-color: #ffffff; height: 500px;">
+        <div class="text-center spinner" style="margin-top: 40%;"><div class="spinner-border" role="status"></div></div>
+        <img src="{% url 'video_feed' %}" width="100%" height="100%">
+
+      </div>
+      <div class="col-md-6" style="background-color: #f2f2f2; height: 500px;">
+        <div id="chat-wrap">
+          <div id="chat-main" class="container">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong>Hệ Thống:</strong></p> <p class="connect">Đang kết nối tới hệ thống...</p></div> </div>')
+    const myTimeout = setTimeout(()=>{
+      $('.connect').text('Đã kết nối hệ thống!')
+      const myTimeout = setTimeout(()=>{
+        $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong>Hệ Thống:</strong></p> <p class="camera">Đang mở camera...</p></div> </div>')
+        const myTimeout = setTimeout(()=>{
+          $('.camera').text('Đã mở camera!')
+          $('.spinner').remove()
+        }, 1000);
+      }, 2000);
+    }, 1500);
+    
+    
+    const eventSource = new EventSource("{% url 'send_info' %}");
+    eventSource.addEventListener('message', function(event) {
+      const data = event.data.split('/');
+      console.log(data[7])
+      $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong>Hệ Thống ('+data[6]+'):</strong></p> <p>xA,yA = ('+data[0]+','+data[1]+') - xB,yB = ('+data[2]+','+data[3]+')</p><p>Nhãn: '+data[5]+' - Độ chính xác: '+data[4]+'%</p></div> </div>')
+      $('#chat-main').animate({scrollTop: $('#chat-main').get(0).scrollHeight}, 0)
+    });
+  });
+</script>
+
+<style>
+  body {
+    background-color: #f1f1f1;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+
+  #chat-wrap {
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+
+  #chat-main {
+    height: 500px;
+    overflow-y: scroll;
+  }
+
+  .chat-message {
+    padding: 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    background-color: #fff;
+  }
+
+  .chat-message p {
+    margin: 5px 0;
+  }
+</style>
+
 </html>
