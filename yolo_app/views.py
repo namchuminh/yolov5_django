@@ -1,5 +1,3 @@
-from cProfile import label
-from tkinter.tix import Tree
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import StreamingHttpResponse
