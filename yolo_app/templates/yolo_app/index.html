@@ -43,9 +43,9 @@
         const myTimeout = setTimeout(()=>{
           $('.camera').text('Đã mở camera!')
           $('.spinner').remove()
-        }, 1000);
-      }, 2000);
-    }, 1500);
+        }, 500);
+      }, 500);
+    }, 500);
     
     
     const eventSource = new EventSource("{% url 'send_info' %}");
