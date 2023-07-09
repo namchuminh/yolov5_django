@@ -54,23 +54,25 @@
       }else{
 
         console.log(data)
-
-        if(data[0] == 'False'){
-          $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU MŨ</p></div> </div>')
-          $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
-        }
-        if(data[1] == 'False'){
-          $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU QUẦN ÁO</p></div> </div>')
-          $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
-        }
-        if(data[2] == 'False'){
-          $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU GĂNG TAY</p></div> </div>')
-          $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
-        }
         if(data[0] == 'False' && data[1] == 'False' && data[2] == 'False'){
-          $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU MŨ, QUẦN ÁO, GĂNG TAY</p></div> </div>')
-          $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
+         
+        }else{
+          if(data[0] == 'False'){
+            $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU MŨ</p></div> </div>')
+            $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
+          }
+          if(data[1] == 'False'){
+            $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU QUẦN ÁO</p></div> </div>')
+            $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
+          }
+          if(data[2] == 'False'){
+            $('#chat-main').append('<div class="row chat-message"> <div class="col-md-12"> <p><strong style="color: red;">CẢNH BÁO (' + data[3] + '):</strong></p> <p>CÔNG NHÂN THIẾU GĂNG TAY</p></div> </div>')
+            $('#chat-main').animate({ scrollTop: $('#chat-main').get(0).scrollHeight }, 0)
+          }
         }
+
+        
+        
       }
     });
   });
